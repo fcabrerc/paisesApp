@@ -1,0 +1,51 @@
+<h2>Por país</h2>
+<hr>
+
+<p>Recordar: private apiUrl: string = 'https://restcountries.com/v2';</p>
+
+<div class="row">
+    <div class="col">
+        <!-- 111 - Pillamos el onEnter -->
+        <!-- 112 - Pillamos el onDebounce -->
+        <app-pais-input
+            (onEnter)="buscar($event)"
+            (onDebounce)="sugerencias($event)"
+            placeholder="Buscar país...">
+        </app-pais-input>
+    </div>
+</div>
+
+<!-- 128 -->
+<ul *ngIf="mostrarSugerencias" 
+    class="list-group">
+    <li *ngFor="let pais of paisesSugeridos"
+        class="list-group-item list-group-item-action">
+        <a class="nav-link"
+            [routerLink]="['/pais', pais.cca2]">
+            {{pais.name.official}}
+        </a>
+    </li>
+    <li class="list-group-item list-group-item-action"
+        (click)="buscarSugerido(termino)">
+        <a class="nav-link">
+            Buscar {{termino}}
+        </a>
+    </li>
+</ul>
+
+<hr>
+
+<!-- 107 añadimos directiva para controlar el error -->
+<div *ngIf="hayError"
+    class="alert alert-danger">
+    No se encontró el término {{termino}}
+</div>
+
+<div *ngIf="paises.length > 0" 
+    class="row">
+    <div class="col">
+
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+
+    </div>
+</div>

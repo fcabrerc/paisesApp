@@ -1,0 +1,35 @@
+<div class="animate__animated animate__fadeIn animate__slow">
+    <h2>Por capital</h2>
+    <hr>
+
+    <p>Recordar: private apiUrl: string = 'https://restcountries.com/v2';</p>
+
+    <div class="row">
+        <div class="col">
+            <!-- 111 - Pillamos el onEnter -->
+            <!-- 112 - Pillamos el onDebounce -->
+            <app-pais-input
+                (onEnter)="buscar($event)"
+                (onDebounce)="sugerencias($event)"
+                placeholder="Buscar capital...">
+            </app-pais-input>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- 107 añadimos directiva para controlar el error -->
+<div *ngIf="hayError"
+    class="alert alert-danger">
+    No se encontró el término {{termino}}
+</div>
+
+<div *ngIf="paises.length > 0" 
+    class="row">
+    <div class="col">
+
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+
+    </div>
+</div>
